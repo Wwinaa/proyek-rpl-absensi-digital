@@ -18,6 +18,7 @@
 | **Tema Topik Kelompok** | **E-Learning & Smart Education AI** |
 | **Repositori GitHub** | [https://github.com/Wwinaa/proyek-rpl-absensi-digital](https://github.com/Wwinaa/proyek-rpl-absensi-digital) |
 | **Mata Kuliah** | Rekayasa Perangkat Lunak (RPL) |
+| **Prototipe UI/UX (Figma)** | [Lihat Bagian Desain UI/UX](#-desain--prototipe-interaktif-uiux-figma) |
 | **Tahun Akademik** | 2025 / 2026 |
 
 ---
@@ -84,8 +85,24 @@ Sistem ini diperkuat oleh asisten cerdas virtual bernama **Hadir.io** yang terta
 | **Activity Diagram** | `Activity_Diagram_Sistem_Absensi_SMK_NU_Wargabinangun.png` | Alur kerja swimlane bisnis presensi scan dan pemrosesan kueri Asisten AI Hadir.io. |
 | **Class Diagram** | `Class_Diagram_Sistem_Absensi_SMK_NU_Wargabinangun.png` | Struktur kelas berorientasi objek MVC, Service, Model, dan Controller berprinsip SOLID. |
 | **Sequence Diagram** | `Sequence_Diagram_Sistem_Absensi_SMK_NU_Wargabinangun.png` | Interaksi dinamis pertukaran pesan antara User, UI, Controller, MariaDB, Telegram API, dan NVIDIA NIM. |
-| **Entity Relationship Diagram (ERD)** | `ERD_Database_Absensi_SMK.png` | Struktur relasional 20 tabel database `db_absensi_smk` ternormalisasi 3NF dengan integritas Foreign Key. |
-| **Prototipe UI/UX Figma** | `Desain_UI_UX_Figma_Sistem_Presensi_SMK.png` | Desain antarmuka mobile-first bertema Navy Blue & Sky Blue modern. |
+| **Entity Relationship Diagram (ERD)** | [`ERD_Database_Absensi_SMK.png`](ERD_Database_Absensi_SMK.png) | Struktur relasional 20 tabel database `db_absensi_smk` ternormalisasi 3NF dengan integritas Foreign Key. |
+| **Prototipe Desain UI/UX** | [`Desain_UI_UX_Figma_Sistem_Presensi_SMK.png`](Desain_UI_UX_Figma_Sistem_Presensi_SMK.png) | Visual mockup antarmuka mobile-first bertema Navy Blue & Sky Blue modern. |
+| **Viewer Prototipe Web Interaktif** | [`desain_ui_ux_figma.html`](desain_ui_ux_figma.html) | File viewer interaktif simulasi alur antarmuka Figma di peramban web. |
+
+---
+
+## 🎨 Desain & Prototipe Interaktif UI/UX (Figma)
+
+Antarmuka Sistem Presensi SMK NU Wargabinangun dirancang dengan pendekatan **Mobile-First & Clean Dashboard** menggunakan kombinasi warna profesional *Navy Blue* (`#0F172A`) dan *Sky Blue* (`#0284C7`). Desain ini memastikan tata letak tombol pemindai kamera responsif, kartu presensi mudah dibaca, dan navigasi ramah pengguna bagi seluruh tingkatan pengguna (Admin, Kepala Sekolah, Wali Kelas, Guru, dan Siswa).
+
+- 🔗 **Tautan Berkas Desain Figma**: `[TEMPEL LINK FIGMA ANDA DI SINI JIKA ADA]`  
+  *(Contoh format: `https://www.figma.com/design/...` atau `https://www.figma.com/proto/...`)*
+- 🌐 **Prototipe Web Interaktif**: Buka berkas [`desain_ui_ux_figma.html`](desain_ui_ux_figma.html) di browser untuk melihat interaksi mockup antarmuka.
+- 🖼️ **Tinjauan Visual Desain UI/UX**:
+
+<p align="center">
+  <img src="Desain_UI_UX_Figma_Sistem_Presensi_SMK.png" alt="Desain UI/UX Figma Sistem Presensi SMK NU Wargabinangun" width="100%">
+</p>
 
 ---
 
