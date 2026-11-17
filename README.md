@@ -18,7 +18,7 @@
 | **Tema Topik Kelompok** | **E-Learning & Smart Education AI** |
 | **Repositori GitHub** | [https://github.com/Wwinaa/proyek-rpl-absensi-digital](https://github.com/Wwinaa/proyek-rpl-absensi-digital) |
 | **Mata Kuliah** | Rekayasa Perangkat Lunak (RPL) |
-| **Prototipe UI/UX (Figma)** | [Lihat Bagian Desain UI/UX](#-desain--prototipe-interaktif-uiux-figma) |
+| **Prototipe UI/UX (Figma)** | [Tautan Desain Figma](https://www.figma.com/design/HJ3KQU3E6jYNRBvK1X99aU/Untitled?node-id=0-1) |
 | **Tahun Akademik** | 2025 / 2026 |
 
 ---
@@ -95,8 +95,8 @@ Sistem ini diperkuat oleh asisten cerdas virtual bernama **Hadir.io** yang terta
 
 Antarmuka Sistem Presensi SMK NU Wargabinangun dirancang dengan pendekatan **Mobile-First & Clean Dashboard** menggunakan kombinasi warna profesional *Navy Blue* (`#0F172A`) dan *Sky Blue* (`#0284C7`). Desain ini memastikan tata letak tombol pemindai kamera responsif, kartu presensi mudah dibaca, dan navigasi ramah pengguna bagi seluruh tingkatan pengguna (Admin, Kepala Sekolah, Wali Kelas, Guru, dan Siswa).
 
-- 🔗 **Tautan Berkas Desain Figma**: `[TEMPEL LINK FIGMA ANDA DI SINI JIKA ADA]`  
-  *(Contoh format: `https://www.figma.com/design/...` atau `https://www.figma.com/proto/...`)*
+- 🔗 **Tautan Berkas Desain Figma**: [https://www.figma.com/design/HJ3KQU3E6jYNRBvK1X99aU/Untitled?node-id=0-1](https://www.figma.com/design/HJ3KQU3E6jYNRBvK1X99aU/Untitled?node-id=0-1)  
+  *(Akses terbuka publik untuk pengujian & evaluasi UI/UX interaktif)*
 - 🌐 **Prototipe Web Interaktif**: Buka berkas [`desain_ui_ux_figma.html`](desain_ui_ux_figma.html) di browser untuk melihat interaksi mockup antarmuka.
 - 🖼️ **Tinjauan Visual Desain UI/UX**:
 

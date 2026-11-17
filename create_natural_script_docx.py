@@ -263,7 +263,7 @@ def create_natural_script_document():
          "Pas scanner dapet barcode, dia kirim AJAX ke backend, backend ngecek ke database, simpen data kehadiran, dan langsung secara asinkron nembak API Telegram. Jadi user di depan kamera gak perlu nunggu loading muter-muter, langsung beres instan!"),
 
         ("Menit 04:30 – 05:45",
-         "Buka file ERD_Database_Absensi_SMK.png, lalu buka file gambar Desain_UI_UX_Figma_Sistem_Presensi_SMK.png (atau buka desain_ui_ux_figma.html di browser secara fullscreen).",
+         "Buka file ERD_Database_Absensi_SMK.png, lalu buka kanvas Figma di browser (https://www.figma.com/design/HJ3KQU3E6jYNRBvK1X99aU/Untitled?node-id=0-1) atau buka gambar Desain_UI_UX_Figma_Sistem_Presensi_SMK.png.",
          "Nah, setelah kita liat struktur ERD 20 tabel yang udah 3NF, sekarang kita masuk ke bagian antarmuka: ini dia Showcase Desain UI/UX & Prototipe Interaktif yang saya rancang di Figma!\n\n"
          "Bisa dilihat langsung di layar ya teman-teman dan Pak Yudhis:\n"
          "Di bagian atas ada Design System-nya: saya pake palet warna Deep Navy (#0F172A) yang terkesan profesional, dipadu Royal Blue (#1E3A8A) dan aksen Sky Blue (#0284C7). Buat status kehadirannya, ada warna hijau Emerald buat hadir tepat waktu, kuning Amber buat terlambat, dan merah buat alpa. Tipografinya pake font modern Inter dan Poppins yang tajem dan nyaman di mata.\n\n"
