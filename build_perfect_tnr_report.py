@@ -246,23 +246,13 @@ def build_full_report_document(docx_path, p=None):
     # Default fallback page dictionary
     if p is None:
         p = {
-            "lp": "2", "kp": "3", "di": "4", "dg": "5",
-            "b1": "6", "b1_1": "6", "b1_2": "6", "b1_3": "6", "b1_4": "7", "b1_5": "7", "b1_6": "8", "b1_7": "9", "b1_8": "9",
-            "b2": "11", "b2_1": "11", "b2_2": "11", "b2_2_1": "11", "b2_2_2": "13", "b2_2_3": "16", "b2_2_4": "16",
-            "b2_3": "17", "b2_4": "19",
-            "b3": "24", "b3_1": "24", "b3_2": "24", "b3_3": "27", "b3_4": "28", "b3_5": "29",
-            "b4": "30", "b4_1": "30", "b4_2": "30", "b4_3": "31", "b4_4": "32",
-            "b5": "34", "b5_1": "34", "b5_2": "34", "b5_3": "34",
-            "dp": "35",
-            # Figures
-            "g11": "10",
-            "g21": "12", "g22": "13", "g23": "14", "g24": "15", "g25": "15",
-            "g26": "16", "g27": "17", "g28": "18", "g29": "19",
-            "g210": "20", "g211": "20", "g212": "21", "g213": "22", "g214": "22", "g215": "23",
-            "g31": "24", "g32": "25", "g33": "26", "g34": "28",
-            "g41": "31",
-            # Tables
-            "t11": "7", "t21": "12", "t22": "18", "t31": "27", "t41": "32", "t42": "33", "t51": "34"
+            "lp": "2", "kp": "3", "di": "4",
+            "b1": "5", "b1_1": "5", "b1_2": "5", "b1_3": "5", "b1_4": "6", "b1_5": "6", "b1_6": "7", "b1_7": "8", "b1_8": "8",
+            "b2": "10", "b2_1": "10", "b2_2": "10", "b2_2_1": "10", "b2_2_2": "12", "b2_2_3": "15", "b2_2_4": "15",
+            "b2_3": "16", "b2_4": "18",
+            "b3": "23", "b3_1": "23", "b3_2": "23", "b3_3": "26", "b3_4": "27", "b3_5": "28",
+            "b4": "29", "b4_1": "29", "b4_2": "29", "b4_3": "29",
+            "dp": "30"
         }
 
     # =========================================================================
@@ -481,8 +471,6 @@ def build_full_report_document(docx_path, p=None):
     add_toc_line(doc, "LEMBAR PERNYATAAN KEASLIAN & INTEGRITAS MANDIRI", p["lp"], level=1)
     add_toc_line(doc, "KATA PENGANTAR & RINGKASAN EKSEKUTIF", p["kp"], level=1)
     add_toc_line(doc, "DAFTAR ISI", p["di"], level=1)
-    add_toc_line(doc, "DAFTAR GAMBAR & DAFTAR TABEL", p["dg"], level=1)
-
     add_toc_line(doc, "BAB I: PRODUCT REQUIREMENTS DOCUMENT (PRD) & SRS", p["b1"], level=1)
     add_toc_line(doc, "1.1 Konsep Proyek & Pernyataan Pengerjaan Mandiri", p["b1_1"], level=2)
     add_toc_line(doc, "1.2 Latar Belakang Masalah & Konteks Lapangan", p["b1_2"], level=2)
@@ -510,60 +498,12 @@ def build_full_report_document(docx_path, p=None):
     add_toc_line(doc, "3.4 Otomasi CI/CD Pipeline & GitHub Actions", p["b3_4"], level=2)
     add_toc_line(doc, "3.5 Petunjuk Instalasi & Deployment Sistem (Setup Instructions)", p["b3_5"], level=2)
 
-    add_toc_line(doc, "BAB IV: PANDUAN VIDEO PRESENTASI & LIVE DEMO", p["b4"], level=1)
-    add_toc_line(doc, "4.1 Ketentuan Standar Kualitas Video Presentasi", p["b4_1"], level=2)
-    add_toc_line(doc, "4.2 Rincian Alokasi Segmen & Durasi Video Presentasi", p["b4_2"], level=2)
-    add_toc_line(doc, "4.3 Skenario Pelaksanaan Live Demo Langkah-demi-Langkah", p["b4_3"], level=2)
-    add_toc_line(doc, "4.4 Matriks Rubrik Penilaian OBE Proyek Mandiri", p["b4_4"], level=2)
-
-    add_toc_line(doc, "BAB V: KESIMPULAN, REFLEKSI REKAYASA & MATRIKS DELIVERABLES", p["b5"], level=1)
-    add_toc_line(doc, "5.1 Kesimpulan Proyek", p["b5_1"], level=2)
-    add_toc_line(doc, "5.2 Refleksi Pembelajaran Mandiri (Engineering Reflection)", p["b5_2"], level=2)
-    add_toc_line(doc, "5.3 Matriks Checklist Pengumpulan Berkas (Submission Deliverables)", p["b5_3"], level=2)
+    add_toc_line(doc, "BAB IV: KESIMPULAN, REFLEKSI REKAYASA & MATRIKS DELIVERABLES", p["b4"], level=1)
+    add_toc_line(doc, "4.1 Kesimpulan Proyek", p["b4_1"], level=2)
+    add_toc_line(doc, "4.2 Refleksi Pembelajaran Mandiri (Engineering Reflection)", p["b4_2"], level=2)
+    add_toc_line(doc, "4.3 Matriks Checklist Pengumpulan Berkas (Submission Deliverables)", p["b4_3"], level=2)
 
     add_toc_line(doc, "DAFTAR PUSTAKA", p["dp"], level=1)
-
-    doc.add_page_break()
-
-    # =========================================================================
-    # 5. DAFTAR GAMBAR & DAFTAR TABEL
-    # =========================================================================
-    add_heading_1(doc, "DAFTAR GAMBAR & DAFTAR TABEL")
-
-    add_heading_2(doc, "DAFTAR GAMBAR")
-    add_toc_line(doc, "Gambar 1.1 Diagram Arsitektur Dual-Engine AI Hadir.io & Guardrail RBAC", p["g11"], level=2)
-    add_toc_line(doc, "Gambar 2.1 Use Case Diagram Terpadu Sistem Presensi (20 Tabel)", p["g21"], level=2)
-    add_toc_line(doc, "Gambar 2.2 Activity Diagram Siklus Bisnis & Alur Integrasi AI (5 Swimlanes)", p["g22"], level=2)
-    add_toc_line(doc, "Gambar 2.3 Activity Diagram Alur Presensi Scan QR Kamera & Toleransi Waktu", p["g23"], level=2)
-    add_toc_line(doc, "Gambar 2.4 Activity Diagram Pengajuan Izin / Sakit Mandiri & Auto-Sync Approval", p["g24"], level=2)
-    add_toc_line(doc, "Gambar 2.5 Activity Diagram Supervisi KBM & Catatan Pembinaan Siswa", p["g25"], level=2)
-    add_toc_line(doc, "Gambar 2.6 Class Diagram Berorientasi Objek Berbasis Prinsip SOLID", p["g26"], level=2)
-    add_toc_line(doc, "Gambar 2.7 Sequence Diagram Alur Pertukaran Pesan Presensi & AI Hadir.io", p["g27"], level=2)
-    add_toc_line(doc, "Gambar 2.8 Entity Relationship Diagram (ERD) Basis Data db_absensi_smk", p["g28"], level=2)
-    add_toc_line(doc, "Gambar 2.9 Showcase Board Prototipe UI/UX Sistem Presensi di Figma", p["g29"], level=2)
-    add_toc_line(doc, "Gambar 2.10 Prototipe Layar 1: Portal Login Multi-Peran (RBAC Auth)", p["g210"], level=2)
-    add_toc_line(doc, "Gambar 2.11 Prototipe Layar 2: Dasbor Analitik Administrator & Master Data", p["g211"], level=2)
-    add_toc_line(doc, "Gambar 2.12 Prototipe Layar 3: Antarmuka Pemindai Barcode/QR Real-Time", p["g212"], level=2)
-    add_toc_line(doc, "Gambar 2.13 Prototipe Layar 4: Supervisi KBM Guru & Rekapitulasi Presensi", p["g213"], level=2)
-    add_toc_line(doc, "Gambar 2.14 Prototipe Layar 5: Portal Siswa, Riwayat Kehadiran & Form Izin Online", p["g214"], level=2)
-    add_toc_line(doc, "Gambar 2.15 Prototipe Layar 6: Widget Percakapan Asisten AI Hadir.io (4 Bahasa)", p["g215"], level=2)
-    add_toc_line(doc, "Gambar 3.1 Diagram Arsitektur Pola Desain MVC Native PHP 8.2", p["g31"], level=2)
-    add_toc_line(doc, "Gambar 3.2 Diagram Logika Validasi Toleransi Keterlambatan dan Kepulangan", p["g32"], level=2)
-    add_toc_line(doc, "Gambar 3.3 Diagram Mekanisme Transaksi Atomik Dual-Sync Wali Kelas (PDO)", p["g33"], level=2)
-    add_toc_line(doc, "Gambar 3.4 Diagram Hasil Automated Unit Testing (100% PASS) & Pipeline CI/CD", p["g34"], level=2)
-    add_toc_line(doc, "Gambar 4.1 Standar Tata Letak Layar Perekaman Video Presentasi (Webcam Aktif)", p["g41"], level=2)
-
-    p_sp_g = doc.add_paragraph()
-    p_sp_g.paragraph_format.space_before = Pt(6)
-
-    add_heading_2(doc, "DAFTAR TABEL")
-    add_toc_line(doc, "Tabel 1.1 Analisis Kebutuhan Pengguna (User Stories & Acceptance Criteria)", p["t11"], level=2)
-    add_toc_line(doc, "Tabel 2.1 Skenario Use Case Inti UC08 (Scan Presensi QR Masuk & Pulang)", p["t21"], level=2)
-    add_toc_line(doc, "Tabel 2.2 Kamus Data Komprehensif 20 Tabel Database db_absensi_smk", p["t22"], level=2)
-    add_toc_line(doc, "Tabel 3.1 Matriks Hasil Pengujian Perangkat Lunak (10 Test Cases 100% PASS)", p["t31"], level=2)
-    add_toc_line(doc, "Tabel 4.1 Rubrik Penilaian Keseluruhan Proyek Mandiri (Skor 1 - 4)", p["t41"], level=2)
-    add_toc_line(doc, "Tabel 4.2 Rubrik Penilaian Khusus Video Presentasi (Skor 1 - 4)", p["t42"], level=2)
-    add_toc_line(doc, "Tabel 5.1 Matriks Checklist Pengumpulan Berkas (Submission Deliverables)", p["t51"], level=2)
 
     doc.add_page_break()
 
@@ -1096,103 +1036,11 @@ def build_full_report_document(docx_path, p=None):
     doc.add_page_break()
 
     # =========================================================================
-    # BAB IV: PANDUAN PELAKSANAAN VIDEO PRESENTASI & LIVE DEMO
+    # BAB IV: KESIMPULAN, REFLEKSI REKAYASA & MATRIKS DELIVERABLES
     # =========================================================================
-    add_heading_1(doc, "BAB IV: PANDUAN VIDEO PRESENTASI & LIVE DEMO")
+    add_heading_1(doc, "BAB IV: KESIMPULAN & MATRIKS DELIVERABLES")
 
-    add_heading_2(doc, "4.1 Ketentuan Standar Kualitas Video Presentasi")
-    add_p_justified(
-        doc,
-        "Berdasarkan Bab III Panduan Tugas Proyek Akhir Mandiri STMIK IKMI Cirebon, presentasi video merupakan instrumen "
-        "fundamental untuk memverifikasi autentisitas pengerjaan mandiri dan penguasaan teknis mahasiswa. "
-        "Ketentuan wajib yang dipenuhi:\n"
-        "• Format & Perekaman Wajah (Webcam Aktif): Rekaman layar (screen recording) WAJIB menampilkan wajah mahasiswa di pojok layar secara jelas sepanjang video berlangsung.\n"
-        "• Kualitas Audio & Visual: Resolusi video tinggi Full HD 1080p dengan suara narasi jernih dan bebas kebisingan latar.\n"
-        "• Aturan Live Demo Real-Time: Demonstrasi pemindaian QR code dan pengujian AI WAJIB dilakukan secara LANGSUNG (live), bukan sekadar menampilkan tangkapan layar (screenshot)."
-    )
-
-    vid_diag = r"c:\xampp\htdocs\absen\Diagram_Layout_Video_Presentasi.png"
-    add_image_with_caption(doc, vid_diag, "Gambar 4.1 Standar Tata Letak Layar Perekaman Video Presentasi (Webcam Aktif)")
-
-    add_heading_2(doc, "4.2 Rincian Alokasi Segmen & Durasi Video Presentasi")
-    add_p_justified(
-        doc,
-        "Total nilai video presentasi berkontribusi sebesar 20% dari total nilai perkuliahan, dengan rincian pembagian 3 segmen terstruktur:\n"
-        "1. Segmen Video Progres 1: PRD & Konsep Aplikasi (Bobot 20% | Durasi 3–5 Menit)\n"
-        "   Membahas identifikasi masalah nyata, visi produk, kebutuhan fungsional/non-fungsional, serta peran strategis fitur AI Hadir.io.\n"
-        "2. Segmen Video Progres 2: Pemodelan UML & UI/UX (Bobot 30% | Durasi 5–7 Menit)\n"
-        "   Membedah alur logika 4 Diagram UML Utama (Use Case & Skenario, Activity 5 Swimlanes, Class SOLID, Sequence Diagram), ERD 20 tabel, dan walkthrough prototipe interaktif Figma.\n"
-        "3. Segmen Video Final: Live Demo Aplikasi Web & AI Utuh (Bobot 50% | Durasi 8–12 Menit)\n"
-        "   Menyajikan Elevator Pitch, live demo scan QR kamera, notifikasi Telegram live, alur approval perizinan auto-sync, supervisi KBM, interaksi chat AI Hadir.io 4 bahasa, verifikasi Unit Test, dan status hijau CI/CD GitHub Actions."
-    )
-
-    add_heading_2(doc, "4.3 Skenario Pelaksanaan Live Demo Langkah-demi-Langkah")
-    add_p_justified(
-        doc,
-        "Urutan skenario demonstrasi langsung yang disajikan secara teratur dalam rekaman video final:\n"
-        "• Langkah 1: Buka antarmuka Kamera Pemindai (Scanner). Arahkan kartu QR siswa ke kamera -> Sistem membaca < 0.5 detik -> Terdengar nada beep sukses -> Muncul status 'Hadir Tepat Waktu' pada panel ringkasan.\n"
-        "• Langkah 2: Tunjukkan aplikasi Telegram pada ponsel -> Notifikasi pesan resmi dari @HadirioBot langsung masuk memuat nama siswa, kelas, jam, dan tanggal presensi.\n"
-        "• Langkah 3: Demo Dual-Sync -> Pindai kartu Wali Kelas -> Buka database/laporan -> Tunjukkan kehadiran otomatis tercatat di data guru dan wali kelas sekaligus.\n"
-        "• Langkah 4: Demo Pengajuan Izin -> Login Siswa -> Unggah surat sakit dokter -> Login Admin -> Klik 'Setujui' -> Tunjukkan status absensi siswa otomatis berubah menjadi 'Izin'.\n"
-        "• Langkah 5: Demo Asisten AI Hadir.io -> Ketik pertanyaan 'ada berapa kelas?' dan 'ada berapa total guru?' -> Perlihatkan respons AI yang cepat, faktual, dan ringkas dalam hitungan detik.\n"
-        "• Langkah 6: Demo Rekapitulasi -> Buka menu Laporan -> Pilih filter rombel -> Klik Ekspor Excel / PDF -> Tunjukkan bahwa data Sabtu/Minggu otomatis dikecualikan."
-    )
-
-    add_heading_2(doc, "4.4 Matriks Rubrik Penilaian OBE Proyek Mandiri")
-    add_p_justified(
-        doc,
-        "Penilaian proyek mandiri dilakukan secara objektif mengacu pada Rubrik Penilaian OBE berskala skor 1–4 "
-        "sebagaimana tercantum pada Panduan Dosen STMIK IKMI Cirebon:"
-    )
-
-    # Rubrik Proyek Mandiri Keseluruhan - Tabel 4.1
-    add_heading_3(doc, "Tabel 4.1 Rubrik Penilaian Keseluruhan Proyek Mandiri (Skor 1 - 4)")
-    tbl_rub = doc.add_table(rows=6, cols=5)
-    tbl_rub.alignment = WD_TABLE_ALIGNMENT.CENTER
-    rub_data = [
-        ("Dimensi Penilaian", "Sangat Baik (Skor 4)", "Baik (Skor 3)", "Cukup (Skor 2) / Kurang (Skor 1)", "Bobot"),
-        ("1. Kualitas PRD & Fitur AI", "PRD sangat rinci, kebutuhan terukur, fitur AI relevan dan berdampak nyata.", "PRD lengkap, kebutuhan terdefinisi, dampak AI masih umum.", "PRD kurang terstruktur, definisi AI tidak jelas atau tidak ada.", "20%"),
-        ("2. Perancangan UML & UI/UX", "4 Diagram UML sangat presisi, konsisten antar-diagram, alur AI tepat, Figma intuitif.", "UML cukup lengkap, terdapat minor ketidaksesuaian alur pada Sequence.", "UML tidak lengkap (1-2 diagram) atau UI/UX masih wireframe kasar.", "20%"),
-        ("3. Kualitas Kode Web & Integrasi AI", "Arsitektur MVC murni, kode bersih SOLID, fitur AI responsif tanpa bug.", "Aplikasi web & AI berfungsi, ada minor bug pada tampilan antarmuka.", "Fitur AI sering crash, struktur spaghetti code, atau gagal dijalankan.", "25%"),
-        ("4. Testing & GitHub CI/CD", "Unit Test passing, riwayat commit Git rapi, CI/CD GitHub Actions hijau.", "Pengujian manual, riwayat Git aktif, skrip CI/CD masih galat.", "Pengujian minim, commit bulk upload, atau tanpa CI/CD.", "15%"),
-        ("5. Kualitas Video Presentasi", "Video sangat profesional, audio/visual jernih 1080p, webcam aktif, live demo lancar.", "Video informatif, demo lancar, penyampaian dominan membaca draf.", "Video kurang rapi, tanpa webcam, atau hanya rekaman layar bisu.", "20%")
-    ]
-    for i, r_vals in enumerate(rub_data):
-        for j, val in enumerate(r_vals):
-            c = tbl_rub.cell(i, j)
-            c.text = val
-    style_table_header(tbl_rub.rows[0], [1.3, 1.8, 1.8, 1.1, 0.5])
-    for idx, row in enumerate(tbl_rub.rows[1:], start=1):
-        style_table_row(row, is_even=(idx % 2 == 1), col_widths=[1.3, 1.8, 1.8, 1.1, 0.5])
-
-    # Rubrik Khusus Video - Tabel 4.2
-    add_heading_3(doc, "Tabel 4.2 Rubrik Penilaian Khusus Video Presentasi (Skor 1 - 4)")
-    tbl_rub_vid = doc.add_table(rows=6, cols=5)
-    tbl_rub_vid.alignment = WD_TABLE_ALIGNMENT.CENTER
-    rub_vid_data = [
-        ("Dimensi Penilaian", "Sangat Baik (Skor 4)", "Baik (Skor 3)", "Cukup (Skor 2) / Kurang (Skor 1)", "Bobot"),
-        ("1. Penguasaan Materi", "Penyampaian sangat lancar, percaya diri, memahami alur UML mendalam, tanpa membaca.", "Cukup lancar dan jelas, sesekali melihat catatan pendukung.", "Penyampaian terbata-bata atau dominan membaca draf teks.", "25%"),
-        ("2. Kualitas Live Demo", "Demo dilakukan live, alur mulus, pengujian AI real-time dan responsif.", "Demo live, fitur berfungsi, namun ada kendala minor antarmuka.", "Demo tersendat, fitur AI error, atau sekadar menampilkan slide foto.", "35%"),
-        ("3. Kedalaman UML", "Mampu menjelaskan keterkaitan 4 diagram UML dengan logika kode secara presisi.", "Menjelaskan 4 diagram dengan baik, sedikit alur terlewat.", "Diagram hanya dibaca sepintas atau tidak dijelaskan sama sekali.", "20%"),
-        ("4. Audio, Visual & Webcam", "Resolusi 1080p jernih, audio tanpa noise, wajah mahasiswa terlihat jelas pada webcam.", "Resolusi 720p, webcam aktif, sedikit noise latar yang tidak mengganggu.", "Video buram, audio tidak jelas, atau perekaman webcam mati.", "10%"),
-        ("5. Manajemen Durasi", "Durasi pas sesuai alokasi tiap tahapan (Progres 1: 3-5m, Progres 2: 5-7m, Final: 8-12m).", "Durasi sedikit melebihi atau kurang dari batas (toleransi ±1 menit).", "Durasi sangat tidak sesuai ketentuan (< 50% atau terlalu panjang).", "10%")
-    ]
-    for i, r_vals in enumerate(rub_vid_data):
-        for j, val in enumerate(r_vals):
-            c = tbl_rub_vid.cell(i, j)
-            c.text = val
-    style_table_header(tbl_rub_vid.rows[0], [1.3, 1.8, 1.8, 1.1, 0.5])
-    for idx, row in enumerate(tbl_rub_vid.rows[1:], start=1):
-        style_table_row(row, is_even=(idx % 2 == 1), col_widths=[1.3, 1.8, 1.8, 1.1, 0.5])
-
-    doc.add_page_break()
-
-    # =========================================================================
-    # BAB V: KESIMPULAN, REFLEKSI REKAYASA & MATRIKS DELIVERABLES
-    # =========================================================================
-    add_heading_1(doc, "BAB V: KESIMPULAN & MATRIKS DELIVERABLES")
-
-    add_heading_2(doc, "5.1 Kesimpulan Proyek")
+    add_heading_2(doc, "4.1 Kesimpulan Proyek")
     add_p_justified(
         doc,
         "Berdasarkan seluruh tahapan perancangan, konstruksi kode, pengujian, dan deployment yang telah diselesaikan, "
@@ -1206,7 +1054,7 @@ def build_full_report_document(docx_path, p=None):
         "asisten pintar sekolah yang akurat, santun, multi-bahasa, dan terisolasi aman oleh guardrail RBAC."
     )
 
-    add_heading_2(doc, "5.2 Refleksi Pembelajaran Mandiri (Engineering Reflection)")
+    add_heading_2(doc, "4.2 Refleksi Pembelajaran Mandiri (Engineering Reflection)")
     add_p_justified(
         doc,
         "Pengerjaan proyek mandiri dengan beban penuh (100% Individual Ownership & Full-App Build) ini memberikan pengalaman "
@@ -1218,13 +1066,21 @@ def build_full_report_document(docx_path, p=None):
         "kompetensi profesional penulis sebagai calon sarjana Teknik Informatika yang siap bersaing di industri teknologi."
     )
 
-    add_heading_2(doc, "5.3 Matriks Checklist Pengumpulan Berkas (Submission Deliverables)")
+    add_heading_2(doc, "4.3 Matriks Checklist Pengumpulan Berkas (Submission Deliverables)")
     add_p_justified(
         doc,
-        "Sesuai dengan ketentuan pengumpulan berkas Bab V Panduan Dosen STMIK IKMI Cirebon, berikut adalah matriks checklist luaran wajib:"
+        "Sesuai dengan ketentuan pengumpulan berkas akhir pada Panduan Tugas Proyek Mandiri Rekayasa Perangkat Lunak "
+        "STMIK IKMI Cirebon (Pertemuan ke-16 / UAS):\n"
+        "1. Repositori GitHub Publik Pribadi: Repositori publik dengan format username/proyek-rpl-nama-aplikasi "
+        "telah aktif dan memuat berkas README.md lengkap (identitas Nama, NIM, Kelompok, Tema Topik, Deskripsi Aplikasi & Fitur AI, "
+        "tautan video progres 1, video progres 2, video final demo, serta petunjuk instalasi setup instruction).\n"
+        "2. Berkas Dokumen Lengkap (PDF Tunggal): Seluruh dokumen PRD/SRS, SDD (Pemodelan UML & UI/UX Figma), dan Laporan Pengujian/CI-CD "
+        "dijilid secara komprehensif dalam satu berkas PDF resmi per mahasiswa untuk diunggah ke portal LMS perkuliahan.\n"
+        "3. Tenggat Waktu Pengumpulan: Seluruh berkas PDF tunggal dan tautan repositori GitHub diunggah tepat waktu sebelum batas akhir "
+        "jadwal Ujian Akhir Semester (UAS)."
     )
 
-    # Tabel 5.1
+    # Tabel 4.1
     tbl_sub = doc.add_table(rows=6, cols=2)
     tbl_sub.alignment = WD_TABLE_ALIGNMENT.CENTER
     sub_data = [
@@ -1242,13 +1098,13 @@ def build_full_report_document(docx_path, p=None):
     for idx, row in enumerate(tbl_sub.rows[1:], start=1):
         style_table_row(row, is_even=(idx % 2 == 1), col_widths=[2.2, 4.3])
 
-    p_cap_t51 = doc.add_paragraph("Tabel 5.1 Matriks Checklist Pengumpulan Berkas (Submission Deliverables)")
-    p_cap_t51.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_cap_t51.paragraph_format.space_before = Pt(3)
-    p_cap_t51.paragraph_format.space_after = Pt(8)
-    p_cap_t51.runs[0].font.name = "Times New Roman"
-    p_cap_t51.runs[0].font.size = Pt(9.5)
-    p_cap_t51.runs[0].font.italic = True
+    p_cap_t41 = doc.add_paragraph("Tabel 4.1 Matriks Checklist Pengumpulan Berkas (Submission Deliverables)")
+    p_cap_t41.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_cap_t41.paragraph_format.space_before = Pt(3)
+    p_cap_t41.paragraph_format.space_after = Pt(8)
+    p_cap_t41.runs[0].font.name = "Times New Roman"
+    p_cap_t41.runs[0].font.size = Pt(9.5)
+    p_cap_t41.runs[0].font.italic = True
 
     add_heading_2(doc, "DAFTAR PUSTAKA")
     refs = [
@@ -1299,57 +1155,21 @@ def extract_heading_pages_from_pdf(pdf_path):
         "b3_3": "3.3 Laporan Pengujian",
         "b3_4": "3.4 Otomasi CI/CD Pipeline",
         "b3_5": "3.5 Petunjuk Instalasi",
-        "b4": "BAB IV: PANDUAN VIDEO PRESENTASI",
-        "b4_1": "4.1 Ketentuan Standar Kualitas",
-        "b4_2": "4.2 Rincian Alokasi Segmen",
-        "b4_3": "4.3 Skenario Pelaksanaan Live Demo",
-        "b4_4": "4.4 Matriks Rubrik Penilaian OBE",
-        "b5": "BAB V: KESIMPULAN & MATRIKS DELIVERABLES",
-        "b5_1": "5.1 Kesimpulan Proyek",
-        "b5_2": "5.2 Refleksi Pembelajaran Mandiri",
-        "b5_3": "5.3 Matriks Checklist Pengumpulan",
-        "dp": "DAFTAR PUSTAKA",
-        # Figures
-        "g11": "Gambar 1.1 Diagram Arsitektur",
-        "g21": "Gambar 2.1 Use Case Diagram",
-        "g22": "Gambar 2.2 Activity Diagram Siklus Bisnis",
-        "g23": "Gambar 2.3 Activity Diagram Alur Presensi",
-        "g24": "Gambar 2.4 Activity Diagram Alur Pengajuan",
-        "g25": "Gambar 2.5 Activity Diagram Supervisi",
-        "g26": "Gambar 2.6 Class Diagram",
-        "g27": "Gambar 2.7 Sequence Diagram",
-        "g28": "Gambar 2.8 Entity Relationship Diagram",
-        "g29": "Gambar 2.9 Showcase Board Prototipe",
-        "g210": "Gambar 2.10 Prototipe Layar 1",
-        "g211": "Gambar 2.11 Prototipe Layar 2",
-        "g212": "Gambar 2.12 Prototipe Layar 3",
-        "g213": "Gambar 2.13 Prototipe Layar 4",
-        "g214": "Gambar 2.14 Prototipe Layar 5",
-        "g215": "Gambar 2.15 Prototipe Layar 6",
-        "g31": "Gambar 3.1 Diagram Arsitektur Pola",
-        "g32": "Gambar 3.2 Diagram Logika Validasi",
-        "g33": "Gambar 3.3 Diagram Mekanisme Transaksi",
-        "g34": "Gambar 3.4 Diagram Hasil Automated",
-        "g41": "Gambar 4.1 Standar Tata Letak",
-        # Tables
-        "t11": "Tabel 1.1 Analisis Kebutuhan",
-        "t21": "Tabel 2.1 Skenario Use Case",
-        "t22": "Tabel 2.2 Kamus Data Komprehensif",
-        "t31": "Tabel 3.1 Matriks Hasil Pengujian",
-        "t41": "Tabel 4.1 Rubrik Penilaian Keseluruhan",
-        "t42": "Tabel 4.2 Rubrik Penilaian Khusus",
-        "t51": "Tabel 5.1 Matriks Checklist Pengumpulan"
+        "b4": "BAB IV: KESIMPULAN & MATRIKS DELIVERABLES",
+        "b4_1": "4.1 Kesimpulan Proyek",
+        "b4_2": "4.2 Refleksi Pembelajaran Mandiri",
+        "b4_3": "4.3 Matriks Checklist Pengumpulan",
+        "dp": "DAFTAR PUSTAKA"
     }
 
     found = {
         "lp": "2",
         "kp": "3",
-        "di": "4",
-        "dg": "5"
+        "di": "4"
     }
 
-    # Search starting from page 6 (index 5)
-    for idx in range(5, len(reader.pages)):
+    # Search starting from page 5 (index 4)
+    for idx in range(4, len(reader.pages)):
         page_num = str(idx + 1)
         txt = reader.pages[idx].extract_text()
         for key, search_str in headings.items():
