@@ -110,26 +110,6 @@ def add_p_justified(doc, text, bold_prefix="", space_after=5, space_before=0, li
     r_body.font.color.rgb = RGBColor(0x1E, 0x29, 0x3B)
     return p
 
-def add_bullet_justified(doc, bullet_label, text, space_after=3):
-    p = doc.add_paragraph()
-    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    p.paragraph_format.left_indent = Inches(0.25)
-    p.paragraph_format.first_line_indent = Inches(-0.25)
-    p.paragraph_format.space_after = Pt(space_after)
-    p.paragraph_format.line_spacing = 1.15
-
-    r_lbl = p.add_run(bullet_label + " ")
-    r_lbl.bold = True
-    r_lbl.font.name = "Times New Roman"
-    r_lbl.font.size = Pt(11)
-    r_lbl.font.color.rgb = RGBColor(0x02, 0x84, 0xC7)
-
-    r_txt = p.add_run(text)
-    r_txt.font.name = "Times New Roman"
-    r_txt.font.size = Pt(11)
-    r_txt.font.color.rgb = RGBColor(0x1E, 0x29, 0x3B)
-    return p
-
 def add_heading_1(doc, text):
     h = doc.add_heading(level=1)
     h.paragraph_format.space_before = Pt(14)
@@ -166,12 +146,18 @@ def add_heading_3(doc, text):
     r.font.color.rgb = RGBColor(0x0F, 0x17, 0x2A)
     return h
 
-def add_image_with_caption(doc, img_path, caption_text, width=Inches(6.4)):
+def add_image_with_caption(doc, img_path, caption_text, width=Inches(6.2)):
     if os.path.exists(img_path):
-        doc.add_picture(img_path, width=width)
+        p_img = doc.add_paragraph()
+        p_img.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p_img.paragraph_format.space_before = Pt(6)
+        p_img.paragraph_format.space_after = Pt(2)
+        r_img = p_img.add_run()
+        r_img.add_picture(img_path, width=width)
+
         p_cap = doc.add_paragraph()
         p_cap.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p_cap.paragraph_format.space_before = Pt(4)
+        p_cap.paragraph_format.space_before = Pt(2)
         p_cap.paragraph_format.space_after = Pt(10)
         r_cap = p_cap.add_run(caption_text)
         r_cap.font.name = "Times New Roman"
@@ -257,21 +243,26 @@ def build_full_report_document(docx_path, p=None):
     rFonts = parse_xml(f'<w:rFonts {nsdecls("w")} w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>')
     style_normal._element.rPr.append(rFonts)
 
-    # Exact synchronized page numbers
+    # Default fallback page dictionary
     if p is None:
         p = {
             "lp": "2", "kp": "3", "di": "4", "dg": "5",
-            "b1": "6", "b1_1": "6", "b1_2": "6", "b1_3": "6", "b1_4": "7", "b1_5": "7", "b1_6": "7", "b1_7": "9", "b1_8": "9",
-            "b2": "10", "b2_1": "10", "b2_2": "10", "b2_2_1": "10", "b2_2_2": "11", "b2_2_3": "13", "b2_2_4": "13",
-            "b2_3": "14", "b2_4": "16",
-            "b3": "18", "b3_1": "18", "b3_2": "18", "b3_3": "19", "b3_4": "19", "b3_5": "20",
-            "b4": "21", "b4_1": "21", "b4_2": "21", "b4_3": "21", "b4_4": "22",
-            "b5": "24", "b5_1": "24", "b5_2": "24", "b5_3": "24",
-            "dp": "25",
+            "b1": "6", "b1_1": "6", "b1_2": "6", "b1_3": "6", "b1_4": "7", "b1_5": "7", "b1_6": "8", "b1_7": "9", "b1_8": "9",
+            "b2": "11", "b2_1": "11", "b2_2": "11", "b2_2_1": "11", "b2_2_2": "13", "b2_2_3": "16", "b2_2_4": "16",
+            "b2_3": "17", "b2_4": "19",
+            "b3": "24", "b3_1": "24", "b3_2": "24", "b3_3": "27", "b3_4": "28", "b3_5": "29",
+            "b4": "30", "b4_1": "30", "b4_2": "30", "b4_3": "31", "b4_4": "32",
+            "b5": "34", "b5_1": "34", "b5_2": "34", "b5_3": "34",
+            "dp": "35",
             # Figures
-            "g21": "10", "g22": "13", "g23": "13", "g24": "14", "g25": "15", "g26": "17",
+            "g11": "10",
+            "g21": "12", "g22": "13", "g23": "14", "g24": "15", "g25": "15",
+            "g26": "16", "g27": "17", "g28": "18", "g29": "19",
+            "g210": "20", "g211": "20", "g212": "21", "g213": "22", "g214": "22", "g215": "23",
+            "g31": "24", "g32": "25", "g33": "26", "g34": "28",
+            "g41": "31",
             # Tables
-            "t11": "7", "t21": "11", "t22": "15", "t31": "19", "t41": "22", "t42": "22", "t51": "24"
+            "t11": "7", "t21": "12", "t22": "18", "t31": "27", "t41": "32", "t42": "33", "t51": "34"
         }
 
     # =========================================================================
@@ -279,7 +270,7 @@ def build_full_report_document(docx_path, p=None):
     # =========================================================================
     p_inst = doc.add_paragraph()
     p_inst.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_inst.paragraph_format.space_before = Pt(8)
+    p_inst.paragraph_format.space_before = Pt(4)
     p_inst.paragraph_format.space_after = Pt(2)
     r_inst = p_inst.add_run("PROGRAM STUDI S1 TEKNIK INFORMATIKA\nSTMIK IKMI CIREBON")
     r_inst.bold = True
@@ -289,24 +280,33 @@ def build_full_report_document(docx_path, p=None):
 
     p_mk = doc.add_paragraph()
     p_mk.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_mk.paragraph_format.space_after = Pt(20)
+    p_mk.paragraph_format.space_after = Pt(12)
     r_mk = p_mk.add_run("MATA KULIAH: REKAYASA PERANGKAT LUNAK (TIKB2503021) — SEMESTER 3 / 4 SKS")
     r_mk.font.name = "Times New Roman"
     r_mk.font.size = Pt(10)
     r_mk.font.color.rgb = RGBColor(0x64, 0x74, 0x8B)
 
+    # Official School Logo
+    logo_path = r"c:\xampp\htdocs\absen\public\assets\images\logo_smk.png"
+    if os.path.exists(logo_path):
+        p_logo = doc.add_paragraph()
+        p_logo.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p_logo.paragraph_format.space_after = Pt(14)
+        r_lg = p_logo.add_run()
+        r_lg.add_picture(logo_path, width=Inches(1.85))
+
     p_t = doc.add_paragraph()
     p_t.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_t.paragraph_format.space_after = Pt(10)
+    p_t.paragraph_format.space_after = Pt(8)
     r_t = p_t.add_run("BERKAS DOKUMEN LENGKAP (PDF TUNGGAL)\nLAPORAN TUGAS PROYEK AKHIR MANDIRI & RUBRIK PENILAIAN OBE")
     r_t.bold = True
     r_t.font.name = "Times New Roman"
-    r_t.font.size = Pt(14.5)
+    r_t.font.size = Pt(14)
     r_t.font.color.rgb = RGBColor(0x0F, 0x17, 0x2A)
 
     p_sub = doc.add_paragraph()
     p_sub.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_sub.paragraph_format.space_after = Pt(18)
+    p_sub.paragraph_format.space_after = Pt(14)
     r_sub = p_sub.add_run(
         "RANCANG BANGUN SISTEM PRESENSI DIGITAL BERBASIS QR CODE SCANNER, "
         "NOTIFIKASI REAL-TIME TELEGRAM, SUPERVISI KBM DAN ASISTEN CERDAS AI HADIR.IO "
@@ -315,7 +315,7 @@ def build_full_report_document(docx_path, p=None):
     )
     r_sub.bold = True
     r_sub.font.name = "Times New Roman"
-    r_sub.font.size = Pt(11.5)
+    r_sub.font.size = Pt(11)
     r_sub.font.color.rgb = RGBColor(0x02, 0x84, 0xC7)
 
     # Metadata Table
@@ -341,12 +341,12 @@ def build_full_report_document(docx_path, p=None):
         c1.paragraphs[0].runs[0].font.size = Pt(9.5)
         set_cell_background(c0, "F1F5F9")
         set_cell_background(c1, "FFFFFF")
-        set_cell_margins(c0, 45, 45, 80, 80)
-        set_cell_margins(c1, 45, 45, 80, 80)
+        set_cell_margins(c0, 40, 40, 75, 75)
+        set_cell_margins(c1, 40, 40, 75, 75)
 
     p_foot_cov = doc.add_paragraph()
     p_foot_cov.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_foot_cov.paragraph_format.space_before = Pt(30)
+    p_foot_cov.paragraph_format.space_before = Pt(20)
     p_foot_cov.paragraph_format.space_after = Pt(0)
     r_foot_cov = p_foot_cov.add_run("STMIK IKMI CIREBON — TAHUN AKADEMIK 2026/2027")
     r_foot_cov.bold = True
@@ -531,15 +531,30 @@ def build_full_report_document(docx_path, p=None):
     add_heading_1(doc, "DAFTAR GAMBAR & DAFTAR TABEL")
 
     add_heading_2(doc, "DAFTAR GAMBAR")
+    add_toc_line(doc, "Gambar 1.1 Diagram Arsitektur Dual-Engine AI Hadir.io & Guardrail RBAC", p["g11"], level=2)
     add_toc_line(doc, "Gambar 2.1 Use Case Diagram Terpadu Sistem Presensi (20 Tabel)", p["g21"], level=2)
     add_toc_line(doc, "Gambar 2.2 Activity Diagram Siklus Bisnis & Alur Integrasi AI (5 Swimlanes)", p["g22"], level=2)
-    add_toc_line(doc, "Gambar 2.3 Class Diagram Berorientasi Objek Berbasis Prinsip SOLID", p["g23"], level=2)
-    add_toc_line(doc, "Gambar 2.4 Sequence Diagram Alur Pertukaran Pesan Presensi & AI Hadir.io", p["g24"], level=2)
-    add_toc_line(doc, "Gambar 2.5 Entity Relationship Diagram (ERD) Basis Data db_absensi_smk", p["g25"], level=2)
-    add_toc_line(doc, "Gambar 2.6 Desain Prototipe UI/UX Sistem Presensi di Figma", p["g26"], level=2)
+    add_toc_line(doc, "Gambar 2.3 Activity Diagram Alur Presensi Scan QR Kamera & Toleransi Waktu", p["g23"], level=2)
+    add_toc_line(doc, "Gambar 2.4 Activity Diagram Pengajuan Izin / Sakit Mandiri & Auto-Sync Approval", p["g24"], level=2)
+    add_toc_line(doc, "Gambar 2.5 Activity Diagram Supervisi KBM & Catatan Pembinaan Siswa", p["g25"], level=2)
+    add_toc_line(doc, "Gambar 2.6 Class Diagram Berorientasi Objek Berbasis Prinsip SOLID", p["g26"], level=2)
+    add_toc_line(doc, "Gambar 2.7 Sequence Diagram Alur Pertukaran Pesan Presensi & AI Hadir.io", p["g27"], level=2)
+    add_toc_line(doc, "Gambar 2.8 Entity Relationship Diagram (ERD) Basis Data db_absensi_smk", p["g28"], level=2)
+    add_toc_line(doc, "Gambar 2.9 Showcase Board Prototipe UI/UX Sistem Presensi di Figma", p["g29"], level=2)
+    add_toc_line(doc, "Gambar 2.10 Prototipe Layar 1: Portal Login Multi-Peran (RBAC Auth)", p["g210"], level=2)
+    add_toc_line(doc, "Gambar 2.11 Prototipe Layar 2: Dasbor Analitik Administrator & Master Data", p["g211"], level=2)
+    add_toc_line(doc, "Gambar 2.12 Prototipe Layar 3: Antarmuka Pemindai Barcode/QR Real-Time", p["g212"], level=2)
+    add_toc_line(doc, "Gambar 2.13 Prototipe Layar 4: Supervisi KBM Guru & Rekapitulasi Presensi", p["g213"], level=2)
+    add_toc_line(doc, "Gambar 2.14 Prototipe Layar 5: Portal Siswa, Riwayat Kehadiran & Form Izin Online", p["g214"], level=2)
+    add_toc_line(doc, "Gambar 2.15 Prototipe Layar 6: Widget Percakapan Asisten AI Hadir.io (4 Bahasa)", p["g215"], level=2)
+    add_toc_line(doc, "Gambar 3.1 Diagram Arsitektur Pola Desain MVC Native PHP 8.2", p["g31"], level=2)
+    add_toc_line(doc, "Gambar 3.2 Diagram Logika Validasi Toleransi Keterlambatan dan Kepulangan", p["g32"], level=2)
+    add_toc_line(doc, "Gambar 3.3 Diagram Mekanisme Transaksi Atomik Dual-Sync Wali Kelas (PDO)", p["g33"], level=2)
+    add_toc_line(doc, "Gambar 3.4 Diagram Hasil Automated Unit Testing (100% PASS) & Pipeline CI/CD", p["g34"], level=2)
+    add_toc_line(doc, "Gambar 4.1 Standar Tata Letak Layar Perekaman Video Presentasi (Webcam Aktif)", p["g41"], level=2)
 
     p_sp_g = doc.add_paragraph()
-    p_sp_g.paragraph_format.space_before = Pt(8)
+    p_sp_g.paragraph_format.space_before = Pt(6)
 
     add_heading_2(doc, "DAFTAR TABEL")
     add_toc_line(doc, "Tabel 1.1 Analisis Kebutuhan Pengguna (User Stories & Acceptance Criteria)", p["t11"], level=2)
@@ -709,6 +724,10 @@ def build_full_report_document(docx_path, p=None):
         "seperti tanggal lahir, usia personal, maupun struktur kode internal sistem."
     )
 
+    # Gambar 1.1: Diagram Arsitektur AI Hadir.io
+    ai_diag = r"c:\xampp\htdocs\absen\Diagram_Arsitektur_AI_Hadirio.png"
+    add_image_with_caption(doc, ai_diag, "Gambar 1.1 Diagram Arsitektur Dual-Engine AI Hadir.io & Guardrail RBAC")
+
     doc.add_page_break()
 
     # =========================================================================
@@ -787,6 +806,21 @@ def build_full_report_document(docx_path, p=None):
     act_img = r"c:\xampp\htdocs\absen\Activity_Diagram_Sistem_Absensi_SMK_NU_Wargabinangun.png"
     add_image_with_caption(doc, act_img, "Gambar 2.2 Activity Diagram Siklus Bisnis & Alur Integrasi AI (5 Swimlanes)")
 
+    # Detail Sub-Activity Diagrams
+    add_p_justified(
+        doc,
+        "Untuk membedah alur logika pada setiap subsistem secara terperinci, berikut disajikan diagram aktivitas turunan untuk "
+        "modul pemindaian presensi kamera, pengajuan perizinan mandiri, serta supervisi bimbingan akademik:"
+    )
+    act_sub1 = r"c:\xampp\htdocs\absen\diagram_uml_jpeg\06_Activity_Diagram_05_Presensi_Scan_QR.jpeg"
+    add_image_with_caption(doc, act_sub1, "Gambar 2.3 Activity Diagram Alur Presensi Scan QR Kamera & Deteksi Toleransi Waktu")
+
+    act_sub2 = r"c:\xampp\htdocs\absen\diagram_uml_jpeg\07_Activity_Diagram_06_Pengajuan_Izin_Sakit.jpeg"
+    add_image_with_caption(doc, act_sub2, "Gambar 2.4 Activity Diagram Alur Pengajuan Izin / Sakit Mandiri & Auto-Sync Approval")
+
+    act_sub3 = r"c:\xampp\htdocs\absen\diagram_uml_jpeg\09_Activity_Diagram_08_Catatan_Supervisi_Pembinaan.jpeg"
+    add_image_with_caption(doc, act_sub3, "Gambar 2.5 Activity Diagram Supervisi Evaluasi KBM & Catatan Pembinaan Siswa")
+
     # 2.2.3 Class Diagram
     add_heading_3(doc, "2.2.3 Class Diagram Berorientasi Objek & Kepatuhan Prinsip SOLID")
     add_p_justified(
@@ -799,7 +833,7 @@ def build_full_report_document(docx_path, p=None):
         "• Dependency Inversion Principle (DIP): Controller bergantung pada abstraksi konfigurasi database terpusat melalui file config global."
     )
     cls_img = r"c:\xampp\htdocs\absen\Class_Diagram_Sistem_Absensi_SMK_NU_Wargabinangun.png"
-    add_image_with_caption(doc, cls_img, "Gambar 2.3 Class Diagram Berorientasi Objek Berbasis Prinsip SOLID")
+    add_image_with_caption(doc, cls_img, "Gambar 2.6 Class Diagram Berorientasi Objek Berbasis Prinsip SOLID")
 
     # 2.2.4 Sequence Diagram
     add_heading_3(doc, "2.2.4 Sequence Diagram Alur Pertukaran Pesan Real-Time")
@@ -809,7 +843,7 @@ def build_full_report_document(docx_path, p=None):
         "Controller, database MariaDB, Bot Telegram, dan NVIDIA NIM REST API secara live:"
     )
     seq_img = r"c:\xampp\htdocs\absen\Sequence_Diagram_Sistem_Absensi_SMK_NU_Wargabinangun.png"
-    add_image_with_caption(doc, seq_img, "Gambar 2.4 Sequence Diagram Alur Pertukaran Pesan Presensi & AI Hadir.io")
+    add_image_with_caption(doc, seq_img, "Gambar 2.7 Sequence Diagram Alur Pertukaran Pesan Presensi & AI Hadir.io")
 
     # 2.3 ERD & Basis Data
     add_heading_2(doc, "2.3 Perancangan Basis Data & Entity Relationship Diagram (ERD)")
@@ -820,7 +854,7 @@ def build_full_report_document(docx_path, p=None):
         "Primary Key (PK) dan Foreign Key (FK) berindeks cepat:"
     )
     erd_img = r"c:\xampp\htdocs\absen\ERD_Database_Absensi_SMK.png"
-    add_image_with_caption(doc, erd_img, "Gambar 2.5 Entity Relationship Diagram (ERD) Basis Data db_absensi_smk (20 Tabel)")
+    add_image_with_caption(doc, erd_img, "Gambar 2.8 Entity Relationship Diagram (ERD) Basis Data db_absensi_smk (20 Tabel)")
 
     add_heading_3(doc, "Kamus Data Komprehensif 20 Tabel Database `db_absensi_smk`")
     add_p_justified(
@@ -875,22 +909,66 @@ def build_full_report_document(docx_path, p=None):
     add_p_justified(
         doc,
         "Desain antarmuka pengguna dirancang menggunakan perangkat lunak industri Figma dengan pendekatan Modern Dark Mode "
-        "yang ergonomis dan nyaman di mata pengguna. Rancangan prototipe interaktif mencakup 6 layar utama sistem presensi:"
+        "yang ergonomis dan nyaman di mata pengguna. Gambar 2.9 memperlihatkan papan showcase menyeluruh prototipe desain Figma:"
     )
     fig_img = r"c:\xampp\htdocs\absen\Desain_UI_UX_Figma_Sistem_Presensi_SMK.png"
-    add_image_with_caption(doc, fig_img, "Gambar 2.6 Desain Prototipe UI/UX Sistem Presensi SMK NU WARGABINANGUN di Figma")
+    add_image_with_caption(doc, fig_img, "Gambar 2.9 Showcase Board Prototipe UI/UX Figma Sistem Presensi SMK NU Wargabinangun")
 
     add_p_justified(
         doc,
-        "Rincian 6 Layar Utama pada Prototipe Figma:\n"
-        "1. Login Portal Multi-Peran: Formulir login tunggal yang secara dinamis mengenali 5 role pengguna berdasarkan username dan kata sandi.\n"
-        "2. Dashboard Administrator: Dasbor analitik yang menampilkan ringkasan kartu metrik (total siswa, guru, kelas, kehadiran hari ini) serta grafik tren absensi.\n"
-        "3. Real-Time Barcode Scanner: Antarmuka kiosk pemindai kamera responsif yang memuat feed video kamera, pemutar audio feedback, dan tabel riwayat presensi live.\n"
-        "4. Supervisi KBM & Rekapitulasi: Layar evaluasi kegiatan mengajar bagi Kepala Sekolah dan tabel rekapitulasi presensi otomatis berfilter hari kerja efektif.\n"
-        "5. Portal Siswa & Perizinan: Antarmuka bagi peserta didik untuk memeriksa riwayat absensi bulanan dan mengajukan surat dispensasi sakit/izin dengan lampiran foto.\n"
-        "6. Widget Asisten AI Hadir.io: Jendela percakapan interaktif mengambang (floating chat) yang menyajikan tanya jawab cerdas data sekolah dalam 4 bahasa.\n\n"
+        "Berikut disajikan dokumentasi visual resolusi tinggi dan bedah fungsionalitas dari ke-6 layar utama prototipe aplikasi:\n\n"
+        "1. Prototipe Layar 1: Portal Login Multi-Peran (RBAC Auth)\n"
+        "Formulir login tunggal terenkripsi yang secara otomatis memvalidasi hak akses dari 5 peran pengguna berbeda "
+        "(Admin, Kepala Sekolah, Wali Kelas, Guru, dan Siswa) menggunakan verifikasi kata sandi Bcrypt hash:"
+    )
+    scr1 = r"c:\xampp\htdocs\absen\UI_Screen_01_Login_Multi_Role.png"
+    add_image_with_caption(doc, scr1, "Gambar 2.10 Prototipe Layar 1: Portal Login Multi-Peran (RBAC Auth)")
+
+    add_p_justified(
+        doc,
+        "2. Prototipe Layar 2: Dasbor Analitik Administrator & Master Data\n"
+        "Dasbor manajerial yang menampilkan ringkasan metrik statistik kehadiran harian secara real-time, grafik tren kehadiran mingguan "
+        "Senin–Jumat, serta pintasan cepat operasi pencetakan massal kartu identitas barcode presensi:"
+    )
+    scr2 = r"c:\xampp\htdocs\absen\UI_Screen_02_Dashboard_Admin.png"
+    add_image_with_caption(doc, scr2, "Gambar 2.11 Prototipe Layar 2: Dasbor Analitik Administrator & Master Data")
+
+    add_p_justified(
+        doc,
+        "3. Prototipe Layar 3: Antarmuka Pemindai Barcode/QR Real-Time (/scan.php)\n"
+        "Antarmuka mode kiosk pemindai kamera responsif berbasis library HTML5-QRCode. Pemindai mengevaluasi jam server lokal "
+        "dalam waktu < 0.5 detik, membunyikan nada audio beep sukses, dan memicu webhook notifikasi Telegram secara simultan:"
+    )
+    scr3 = r"c:\xampp\htdocs\absen\UI_Screen_03_Barcode_Scanner_Realtime.png"
+    add_image_with_caption(doc, scr3, "Gambar 2.12 Prototipe Layar 3: Antarmuka Pemindai Barcode/QR Real-Time (/scan.php)")
+
+    add_p_justified(
+        doc,
+        "4. Prototipe Layar 4: Supervisi KBM Guru & Rekapitulasi Presensi\n"
+        "Kanal supervisi akademik bagi Kepala Sekolah untuk mengevaluasi KBM guru dan memantau kehadiran harian, lengkap dengan "
+        "fitur pelacak status baca (*Read Status Tracking*) yang menunjukkan apakah arahan evaluasi telah dibaca oleh guru terkait:"
+    )
+    scr4 = r"c:\xampp\htdocs\absen\UI_Screen_04_Supervisi_KBM_Rekap.png"
+    add_image_with_caption(doc, scr4, "Gambar 2.13 Prototipe Layar 4: Supervisi KBM Guru & Rekapitulasi Presensi")
+
+    add_p_justified(
+        doc,
+        "5. Prototipe Layar 5: Portal Siswa, Riwayat Kehadiran & Form Izin Online\n"
+        "Antarmuka mandiri bagi peserta didik untuk memantau akumulasi kehadiran bulanan secara transparan serta mengajukan surat "
+        "permohonan izin atau sakit tanpa kertas (*paperless*) dengan melampirkan berkas foto surat dokter yang tervalidasi:"
+    )
+    scr5 = r"c:\xampp\htdocs\absen\UI_Screen_05_Portal_Siswa_Izin.png"
+    add_image_with_caption(doc, scr5, "Gambar 2.14 Prototipe Layar 5: Portal Siswa, Riwayat Kehadiran & Form Izin Online")
+
+    add_p_justified(
+        doc,
+        "6. Prototipe Layar 6: Widget Percakapan Asisten AI Hadir.io (4 Bahasa)\n"
+        "Jendela percakapan cerdas mengambang (*floating widget*) yang mampu menjawab pertanyaan seputar data akademik sekolah "
+        "dalam 4 bahasa (Indonesia, Inggris, Sunda, dan Jawa) berlandaskan kueri database faktual dan model NVIDIA NIM Nemotron LLM:\n\n"
         "Tautan Resmi Berkas Desain Figma: https://www.figma.com/design/HJ3KQU3E6jYNRBvK1X99aU/Untitled?node-id=0-1"
     )
+    scr6 = r"c:\xampp\htdocs\absen\UI_Screen_06_Widget_Chat_AI_Hadirio.png"
+    add_image_with_caption(doc, scr6, "Gambar 2.15 Prototipe Layar 6: Widget Percakapan Asisten AI Hadir.io (4 Bahasa)")
 
     doc.add_page_break()
 
@@ -912,6 +990,9 @@ def build_full_report_document(docx_path, p=None):
         "• `.github/workflows/ci.yml`: Pipeline otomatisasi pengujian CI/CD GitHub Actions."
     )
 
+    mvc_diag = r"c:\xampp\htdocs\absen\Diagram_Arsitektur_MVC_PHP.png"
+    add_image_with_caption(doc, mvc_diag, "Gambar 3.1 Diagram Arsitektur Pola Desain MVC Native PHP 8.2")
+
     add_heading_2(doc, "3.2 Implementasi Fitur Kunci & Potongan Kode (Code Highlights)")
     add_p_justified(
         doc,
@@ -921,11 +1002,18 @@ def build_full_report_document(docx_path, p=None):
         "status dicatat sebagai 'Hadir Tepat Waktu'. Apabila pemindaian dilakukan lewat dari pukul 07:00 WIB, status otomatis berlabel 'Terlambat'.\n\n"
         "2. Validasi Jam Kepulangan:\n"
         "Untuk mencegah peserta didik atau guru pulang sebelum waktunya, tombol/mode scan kepulangan hanya menerima pemindaian mulai pukul 15:00 WIB ke atas. "
-        "Pemindaian sebelum jam tersebut akan memunculkan notifikasi penolakan dari sistem.\n\n"
+        "Pemindaian sebelum jam tersebut akan memunculkan notifikasi penolakan dari sistem."
+    )
+
+    time_diag = r"c:\xampp\htdocs\absen\Diagram_Alur_Validasi_Waktu.png"
+    add_image_with_caption(doc, time_diag, "Gambar 3.2 Diagram Logika Validasi Toleransi Keterlambatan dan Batas Jam Kepulangan")
+
+    add_p_justified(
+        doc,
         "3. Mekanisme Transaksi Atomik Dual-Sync Wali Kelas:\n"
         "Saat seorang guru yang mengemban amanah sebagai Wali Kelas memindai kartu presensi di gerbang sekolah, controller secara atomik "
         "menjalankan blok transaksi database PDO (beginTransaction - commit) yang mencatat kehadiran ke dalam tabel `absensi_guru` dan `absensi_wali_kelas` "
-        "secara simultan tanpa perlu melakukan pemindaian ganda.\n\n"
+        "secara simultan tanpa perlu melakukan pemindaian ganda:\n\n"
         "4. Integrasi Webhook Bot Telegram (@HadirioBot):\n"
         "Pengiriman pesan notifikasi live dilakukan menggunakan cURL HTTP POST dengan opsi khusus `CURLOPT_IPRESOLVE = CURL_IPRESOLVE_V4` "
         "dan `CURLOPT_SSL_VERIFYPEER = false` pada server lokal guna mengeliminasi kendala timeout SSL pada lingkungan Windows XAMPP.\n\n"
@@ -933,6 +1021,9 @@ def build_full_report_document(docx_path, p=None):
         "Ketika Administrator menekan tombol 'Setujui' pada entitas pengajuan izin, sistem secara otomatis mengeksekusi sinkronisasi update "
         "ke tabel `absensi_siswa` atau `absensi_guru` sehingga status presensi langsung berubah menjadi 'Izin' atau 'Sakit' tanpa intervensi manual."
     )
+
+    sync_diag = r"c:\xampp\htdocs\absen\Diagram_Dual_Sync_Walikelas.png"
+    add_image_with_caption(doc, sync_diag, "Gambar 3.3 Diagram Mekanisme Transaksi Atomik Dual-Sync Wali Kelas (PDO)")
 
     add_heading_2(doc, "3.3 Laporan Pengujian Perangkat Lunak (Software Testing Report)")
     add_p_justified(
@@ -986,6 +1077,9 @@ def build_full_report_document(docx_path, p=None):
         "• Status Pipeline: Seluruh tahapan build dinyatakan PASS dengan badge indikator hijau pada README repositori."
     )
 
+    cicd_diag = r"c:\xampp\htdocs\absen\Diagram_Hasil_Testing_Pass.png"
+    add_image_with_caption(doc, cicd_diag, "Gambar 3.4 Diagram Hasil Automated Unit Testing (100% PASS) & Pipeline CI/CD")
+
     add_heading_2(doc, "3.5 Petunjuk Instalasi & Deployment Sistem (Setup Instructions)")
     add_p_justified(
         doc,
@@ -1016,6 +1110,9 @@ def build_full_report_document(docx_path, p=None):
         "• Kualitas Audio & Visual: Resolusi video tinggi Full HD 1080p dengan suara narasi jernih dan bebas kebisingan latar.\n"
         "• Aturan Live Demo Real-Time: Demonstrasi pemindaian QR code dan pengujian AI WAJIB dilakukan secara LANGSUNG (live), bukan sekadar menampilkan tangkapan layar (screenshot)."
     )
+
+    vid_diag = r"c:\xampp\htdocs\absen\Diagram_Layout_Video_Presentasi.png"
+    add_image_with_caption(doc, vid_diag, "Gambar 4.1 Standar Tata Letak Layar Perekaman Video Presentasi (Webcam Aktif)")
 
     add_heading_2(doc, "4.2 Rincian Alokasi Segmen & Durasi Video Presentasi")
     add_p_justified(
@@ -1175,28 +1272,110 @@ def build_full_report_document(docx_path, p=None):
     doc.save(docx_path)
     print(f"[SUCCESS] Document generated successfully: {docx_path}")
 
+def extract_heading_pages_from_pdf(pdf_path):
+    reader = pypdf.PdfReader(pdf_path)
+    headings = {
+        "b1": "BAB I: PRODUCT REQUIREMENTS DOCUMENT",
+        "b1_1": "1.1 Konsep Proyek",
+        "b1_2": "1.2 Latar Belakang Masalah",
+        "b1_3": "1.3 Identifikasi Masalah",
+        "b1_4": "1.4 Visi Produk",
+        "b1_5": "1.5 Analisis Kebutuhan",
+        "b1_6": "1.6 Spesifikasi Kebutuhan Fungsional",
+        "b1_7": "1.7 Spesifikasi Kebutuhan Non-Fungsional",
+        "b1_8": "1.8 Arsitektur & Spesifikasi Fitur Kecerdasan",
+        "b2": "BAB II: SOFTWARE DESIGN DOCUMENT",
+        "b2_1": "2.1 Arsitektur Perangkat Lunak",
+        "b2_2": "2.2 Pemodelan 4 Diagram UML",
+        "b2_2_1": "2.2.1 Use Case Diagram",
+        "b2_2_2": "2.2.2 Activity Diagram",
+        "b2_2_3": "2.2.3 Class Diagram",
+        "b2_2_4": "2.2.4 Sequence Diagram",
+        "b2_3": "2.3 Perancangan Basis Data",
+        "b2_4": "2.4 Perancangan Antarmuka Pengguna",
+        "b3": "BAB III: IMPLEMENTASI KODE",
+        "b3_1": "3.1 Struktur Direktori",
+        "b3_2": "3.2 Implementasi Fitur Kunci",
+        "b3_3": "3.3 Laporan Pengujian",
+        "b3_4": "3.4 Otomasi CI/CD Pipeline",
+        "b3_5": "3.5 Petunjuk Instalasi",
+        "b4": "BAB IV: PANDUAN VIDEO PRESENTASI",
+        "b4_1": "4.1 Ketentuan Standar Kualitas",
+        "b4_2": "4.2 Rincian Alokasi Segmen",
+        "b4_3": "4.3 Skenario Pelaksanaan Live Demo",
+        "b4_4": "4.4 Matriks Rubrik Penilaian OBE",
+        "b5": "BAB V: KESIMPULAN & MATRIKS DELIVERABLES",
+        "b5_1": "5.1 Kesimpulan Proyek",
+        "b5_2": "5.2 Refleksi Pembelajaran Mandiri",
+        "b5_3": "5.3 Matriks Checklist Pengumpulan",
+        "dp": "DAFTAR PUSTAKA",
+        # Figures
+        "g11": "Gambar 1.1 Diagram Arsitektur",
+        "g21": "Gambar 2.1 Use Case Diagram",
+        "g22": "Gambar 2.2 Activity Diagram Siklus Bisnis",
+        "g23": "Gambar 2.3 Activity Diagram Alur Presensi",
+        "g24": "Gambar 2.4 Activity Diagram Alur Pengajuan",
+        "g25": "Gambar 2.5 Activity Diagram Supervisi",
+        "g26": "Gambar 2.6 Class Diagram",
+        "g27": "Gambar 2.7 Sequence Diagram",
+        "g28": "Gambar 2.8 Entity Relationship Diagram",
+        "g29": "Gambar 2.9 Showcase Board Prototipe",
+        "g210": "Gambar 2.10 Prototipe Layar 1",
+        "g211": "Gambar 2.11 Prototipe Layar 2",
+        "g212": "Gambar 2.12 Prototipe Layar 3",
+        "g213": "Gambar 2.13 Prototipe Layar 4",
+        "g214": "Gambar 2.14 Prototipe Layar 5",
+        "g215": "Gambar 2.15 Prototipe Layar 6",
+        "g31": "Gambar 3.1 Diagram Arsitektur Pola",
+        "g32": "Gambar 3.2 Diagram Logika Validasi",
+        "g33": "Gambar 3.3 Diagram Mekanisme Transaksi",
+        "g34": "Gambar 3.4 Diagram Hasil Automated",
+        "g41": "Gambar 4.1 Standar Tata Letak",
+        # Tables
+        "t11": "Tabel 1.1 Analisis Kebutuhan",
+        "t21": "Tabel 2.1 Skenario Use Case",
+        "t22": "Tabel 2.2 Kamus Data Komprehensif",
+        "t31": "Tabel 3.1 Matriks Hasil Pengujian",
+        "t41": "Tabel 4.1 Rubrik Penilaian Keseluruhan",
+        "t42": "Tabel 4.2 Rubrik Penilaian Khusus",
+        "t51": "Tabel 5.1 Matriks Checklist Pengumpulan"
+    }
+
+    found = {
+        "lp": "2",
+        "kp": "3",
+        "di": "4",
+        "dg": "5"
+    }
+
+    # Search starting from page 6 (index 5)
+    for idx in range(5, len(reader.pages)):
+        page_num = str(idx + 1)
+        txt = reader.pages[idx].extract_text()
+        for key, search_str in headings.items():
+            if key not in found and search_str.lower() in txt.lower():
+                found[key] = page_num
+
+    return found
+
 if __name__ == "__main__":
     out_docx = r"c:\xampp\htdocs\absen\Laporan_Proyek_Akhir_RPL_Sistem_Presensi_SMK_NU_Wargabinangun.docx"
     out_pdf = r"c:\xampp\htdocs\absen\Laporan_Proyek_Akhir_RPL_Sistem_Presensi_SMK_NU_Wargabinangun.pdf"
 
-    # Use the mathematically extracted exact page mapping
-    exact_pages = {
-        "lp": "2", "kp": "3", "di": "4", "dg": "5",
-        "b1": "6", "b1_1": "6", "b1_2": "6", "b1_3": "6", "b1_4": "7", "b1_5": "7", "b1_6": "7", "b1_7": "9", "b1_8": "9",
-        "b2": "10", "b2_1": "10", "b2_2": "10", "b2_2_1": "10", "b2_2_2": "11", "b2_2_3": "13", "b2_2_4": "13",
-        "b2_3": "14", "b2_4": "16",
-        "b3": "18", "b3_1": "18", "b3_2": "18", "b3_3": "19", "b3_4": "19", "b3_5": "20",
-        "b4": "21", "b4_1": "21", "b4_2": "21", "b4_3": "21", "b4_4": "22",
-        "b5": "24", "b5_1": "24", "b5_2": "24", "b5_3": "24",
-        "dp": "25",
-        # Figures
-        "g21": "10", "g22": "13", "g23": "13", "g24": "14", "g25": "15", "g26": "17",
-        # Tables
-        "t11": "7", "t21": "11", "t22": "15", "t31": "19", "t41": "22", "t42": "22", "t51": "24"
-    }
-
-    print("--- Generating Master Document with Exact Synchronized Page Numbers ---")
-    build_full_report_document(out_docx, p=exact_pages)
-    print("--- Converting to PDF via docx2pdf ---")
+    print("--- PASS 1: Generate Document with All 18 Detailed Images & Logo ---")
+    build_full_report_document(out_docx)
+    print("--- PASS 1: Converting to PDF via docx2pdf ---")
     convert(out_docx, out_pdf)
-    print("--- DONE: Master Report Synchronized Flawlessly! ---")
+
+    print("--- PASS 1: Extract Exact Page Numbers from PDF ---")
+    exact_pages = extract_heading_pages_from_pdf(out_pdf)
+    print("Exact pages detected:")
+    for k, v in exact_pages.items():
+        print(f"  {k}: Halaman {v}")
+
+    print("--- PASS 2: Re-generate Document with 100% Synchronized TOC Pages ---")
+    build_full_report_document(out_docx, p=exact_pages)
+    print("--- PASS 2: Converting to Final Synchronized PDF ---")
+    convert(out_docx, out_pdf)
+
+    print("--- FINISHED: Master Report with All Images Successfully Synchronized! ---")
