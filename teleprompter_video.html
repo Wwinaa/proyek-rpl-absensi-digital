@@ -136,28 +136,33 @@
     <!-- Navigation Pills -->
     <ul class="nav nav-pills mb-4 justify-content-center" id="videoTabs" role="tablist">
         <li class="nav-item">
-            <button class="nav-link active" id="prep-tab" data-bs-toggle="pill" data-bs-target="#prep" type="button">
-                <i class="fas fa-clipboard-check me-2"></i> Cheat Sheet & Persiapan
+            <button class="nav-link active" id="quick-tab" data-bs-toggle="pill" data-bs-target="#quick" type="button">
+                <i class="fas fa-bolt text-warning me-2"></i> Mode Singkat & To-The-Point (5–7 Menit)
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="prep-tab" data-bs-toggle="pill" data-bs-target="#prep" type="button">
+                <i class="fas fa-clipboard-check me-2"></i> Cheat Sheet & Akun
             </button>
         </li>
         <li class="nav-item">
             <button class="nav-link" id="seg1-tab" data-bs-toggle="pill" data-bs-target="#seg1" type="button">
-                <i class="fas fa-file-alt me-2"></i> Segmen 1: PRD (3–4 Menit)
+                <i class="fas fa-file-alt me-2"></i> Segmen 1: PRD
             </button>
         </li>
         <li class="nav-item">
             <button class="nav-link" id="seg2-tab" data-bs-toggle="pill" data-bs-target="#seg2" type="button">
-                <i class="fas fa-project-diagram me-2"></i> Segmen 2: UML & Figma (5–6 Menit)
+                <i class="fas fa-project-diagram me-2"></i> Segmen 2: UML & Figma
             </button>
         </li>
         <li class="nav-item">
             <button class="nav-link" id="seg3-tab" data-bs-toggle="pill" data-bs-target="#seg3" type="button">
-                <i class="fas fa-play-circle me-2"></i> Segmen 3: Live Demo & AI (10–11 Menit)
+                <i class="fas fa-play-circle me-2"></i> Segmen 3: Full Demo
             </button>
         </li>
         <li class="nav-item">
             <button class="nav-link" id="barcodes-tab" data-bs-toggle="pill" data-bs-target="#barcodes" type="button">
-                <i class="fas fa-qrcode me-2"></i> Kartu Barcode Siap Scan
+                <i class="fas fa-qrcode me-2"></i> Kartu Barcode Scan
             </button>
         </li>
     </ul>
@@ -165,9 +170,106 @@
     <!-- Tab Contents -->
     <div class="tab-content" id="videoTabsContent">
 
-        <!-- TAB 0: CHECKLIST PERSIAPAN -->
-        <div class="tab-pane fade show active" id="prep" role="tabpanel">
+        <!-- TAB KHUSUS: MODE SINGKAT & TO-THE-POINT (5-7 MENIT) -->
+        <div class="tab-pane fade show active" id="quick" role="tabpanel">
+            <div class="alert alert-info border-0 rounded-4 shadow-sm mb-4">
+                <h5 class="fw-bold mb-1"><i class="fas fa-bolt text-warning me-2"></i> Panduan Demo Singkat, Padat & Langsung Intinya</h5>
+                <p class="mb-0 small">Naskah ini disusun dengan bahasa santai tapi profesional. Setiap langkah dilengkapi arahan aksi layar dan kalimat bicara yang ringkas. Total durasi sekitar <strong>5 sampai 7 menit</strong>.</p>
+            </div>
+
+            <!-- LANGKAH 1 -->
             <div class="script-card">
+                <div class="timestamp-badge">Langkah 1 • Menit 00:00 – 00:30 | Pembukaan Cepat</div>
+                <div class="screen-action">
+                    <i class="fas fa-desktop me-2"></i> <strong>Aksi di Layar:</strong> Buka halaman login di <code>http://localhost/absen/</code>. Webcam wajah Anda aktif di pojok kanan atas layar.
+                </div>
+                <div class="spoken-text">
+                    "Halo semuanya, selamat datang! Nama saya <strong>Winarti</strong>, mahasiswi Teknik Informatika kelas TI-1C, NIM <strong>41257168</strong> dari kelompok <strong>Sunyaragi Nexus</strong>.<br><br>
+                    Di video ini, saya akan mendemonstrasikan secara langsung sistem tugas akhir saya, yaitu: <strong>Sistem Presensi Digital dan Kesiswaan Terpadu SMK NU Wargabinangun</strong> yang sudah terintegrasi scanner kamera, notifikasi Bot Telegram, dan Asisten AI cerdas Hadir.io. Yuk langsung kita coba aplikasinya!"
+                </div>
+            </div>
+
+            <!-- LANGKAH 2 -->
+            <div class="script-card">
+                <div class="timestamp-badge">Langkah 2 • Menit 00:30 – 01:30 | Dashboard Admin & Master Data</div>
+                <div class="screen-action">
+                    <i class="fas fa-desktop me-2"></i> <strong>Aksi di Layar:</strong> Login dengan username: <code>Winarti</code> (atau <code>admin</code>), password: <code>password</code>. Klik menu <strong>Master Data Siswa</strong>, lalu klik tombol <strong>Cetak Barcode</strong>.
+                </div>
+                <div class="spoken-text">
+                    "Pertama, kita login sebagai <strong>Administrator</strong>. Masukkan password, klik Masuk.<br><br>
+                    Nah, di halaman utama ini langsung terlihat ringkasan statistik kehadiran hari ini. Di sidebar kiri, sistem ini mengelola <strong>20 tabel database terpadu</strong>: mulai dari data jurusan, kelas, siswa, guru, jadwal pelajaran, hingga pengaturan sistem.<br><br>
+                    Admin juga bisa langsung mencetak kartu barcode atau QR Code untuk semua siswa dan guru hanya dalam satu kali klik, seperti yang terlihat di layar."
+                </div>
+            </div>
+
+            <!-- LANGKAH 3 -->
+            <div class="script-card">
+                <div class="timestamp-badge">Langkah 3 • Menit 01:30 – 03:00 | Live Scan Presensi & Notifikasi Telegram</div>
+                <div class="screen-action">
+                    <i class="fas fa-desktop me-2"></i> <strong>Aksi di Layar:</strong> Buka menu Scanner di <code>http://localhost/absen/absensi/scan</code>. Masukkan kode barcode di kolom input: <code>BRC1000</code> lalu Enter, kemudian coba kode Guru: <code>198001012005011001</code> lalu Enter.
+                </div>
+                <div class="spoken-text">
+                    "Sekarang kita masuk ke fitur utamanya: <strong>Pemindai Presensi Real-Time</strong>.<br><br>
+                    Halaman ini mendukung scan kamera webcam langsung, atau input cepat barcode. Sekarang saya contohkan scan siswa dengan kode <strong>BRC1000</strong> atas nama Cakra Bramantyo. Kita klik kirim... nah! Langsung berbunyi bip dan muncul notifikasi hijau: <em>Presensi berhasil dicatat!</em><br><br>
+                    Begitu presensi sukses, sistem otomatis memicu webhook cURL ke <strong>Bot Telegram (@HadirioBot)</strong> untuk mengirimkan notifikasi instan ke orang tua atau grup sekolah.<br><br>
+                    Fitur ini juga berlaku untuk guru dan wali kelas, di mana saat wali kelas scan kartu, sistem otomatis menjalankan <strong>Dual-Sync</strong> mencatat kehadiran guru sekaligus presensi wali kelas rombel binaannya."
+                </div>
+            </div>
+
+            <!-- LANGKAH 4 -->
+            <div class="script-card">
+                <div class="timestamp-badge">Langkah 4 • Menit 03:00 – 04:15 | Portal Siswa & Pengajuan Izin Dokter</div>
+                <div class="screen-action">
+                    <i class="fas fa-desktop me-2"></i> <strong>Aksi di Layar:</strong> Logout dari Admin, lalu login sebagai siswa: username <code>cakra</code>, password <code>password123</code>. Tunjukkan kalender kehadiran (kotak hijau Hadir), lalu buka menu <strong>Pengajuan Izin</strong>.
+                </div>
+                <div class="spoken-text">
+                    "Sekarang kita coba lihat dari sudut pandang siswa. Kita login pakai akun <strong>cakra</strong>, password: <strong>password123</strong>.<br><br>
+                    Di dashboard siswa, Cakra bisa langsung melihat kalender presensi pribadinya yang otomatis berwarna hijau karena tadi kita sudah scan masuk.<br><br>
+                    Kalau siswa berhalangan hadir, mereka tidak perlu pakai surat kertas manual. Siswa tinggal buka menu <strong>Pengajuan Izin / Sakit</strong>, pilih jenis perizinan, dan wajib melampirkan foto surat dokter. Permohonan ini akan langsung masuk ke dashboard wali kelas untuk diverifikasi."
+                </div>
+            </div>
+
+            <!-- LANGKAH 5 -->
+            <div class="script-card">
+                <div class="timestamp-badge">Langkah 5 • Menit 04:15 – 05:45 | Fitur Unggulan Asisten AI Hadir.io</div>
+                <div class="screen-action">
+                    <i class="fas fa-desktop me-2"></i> <strong>Aksi di Layar:</strong> Klik ikon balon chat robot di pojok kanan bawah. Ketik pertanyaan: <em>"Berapa jumlah kelas di SMK NU Wargabinangun?"</em> lalu kirim. Coba lagi: <em>"Sebutkan beberapa nama guru aktif!"</em>
+                </div>
+                <div class="spoken-text">
+                    "Ini adalah fitur paling inovatif di aplikasi ini: <strong>Asisten Cerdas Sekolah Hadir.io</strong> yang bisa diakses oleh seluruh 5 tingkatan pengguna.<br><br>
+                    Chatbot ini menggunakan kecerdasan artifisial <strong>NVIDIA NIM (model Nemotron LLM)</strong> yang digabungkan dengan <strong>Fast-Path SQL Extraction</strong> lokal. Jadi jawabannya 100% akurat dari data asli database sekolah dan bebas halusinasi.<br><br>
+                    Misalnya saya tanya: <em>'Berapa jumlah kelas di SMK NU Wargabinangun?'</em>. Kita kirim... dan langsung dijawab secara cepat, santun, dan to-the-point!<br><br>
+                    Asisten ini juga sudah mendukung 4 bahasa adaptif: Bahasa Indonesia, Bahasa Inggris, Basa Sunda, dan Basa Jawa Cirebonan."
+                </div>
+            </div>
+
+            <!-- LANGKAH 6 -->
+            <div class="script-card">
+                <div class="timestamp-badge">Langkah 6 • Menit 05:45 – 06:45 | Rekapitulasi Presensi & Ekspor Laporan</div>
+                <div class="screen-action">
+                    <i class="fas fa-desktop me-2"></i> <strong>Aksi di Layar:</strong> Login kembali ke Admin / Kepala Sekolah, buka menu <strong>Laporan / Rekapitulasi Presensi</strong>. Tunjukkan tabel rekap, lalu klik tombol <strong>Ekspor Excel</strong> atau <strong>Cetak PDF</strong>.
+                </div>
+                <div class="spoken-text">
+                    "Terakhir untuk pelaporan, pimpinan sekolah dan wali kelas bisa membuka menu <strong>Rekapitulasi Presensi</strong>.<br><br>
+                    Perhitungan persentase kehadiran di sistem ini sudah menggunakan filter hari efektif <strong>Senin sampai Jumat</strong>, jadi hari libur Sabtu dan Minggu otomatis dikecualikan agar data rekapitulasi benar-benar valid.<br><br>
+                    Laporan ini bisa langsung kita ekspor satu kali klik ke format <strong>Microsoft Excel (.xlsx)</strong> atau <strong>Cetak PDF</strong> resmi untuk arsip sekolah."
+                </div>
+            </div>
+
+            <!-- LANGKAH 7 -->
+            <div class="script-card">
+                <div class="timestamp-badge">Langkah 7 • Menit 06:45 – 07:15 | Penutup Singkat</div>
+                <div class="screen-action">
+                    <i class="fas fa-desktop me-2"></i> <strong>Aksi di Layar:</strong> Kembali ke dashboard utama. Tatap webcam, tersenyum ramah.
+                </div>
+                <div class="spoken-text">
+                    "Secara keseluruhan, sistem presensi ini berhasil mengotomasi proses absensi harian menjadi transparan, cepat, dan bebas kecurangan dengan dukungan Bot Telegram dan AI Hadir.io.<br><br>
+                    Seluruh kode sumber sudah tersedia di GitHub di repositori <strong>proyek-rpl-absensi-digital</strong>, dan berkas laporan lengkap sudah selesai disusun.<br><br>
+                    Sekian demonstrasi dari saya, Winarti. Terima kasih banyak kepada Bapak Yudhistira Arie Wijaya dan teman-teman semua. Wassalamu'alaikum warahmatullahi wabarakatuh."
+                </div>
+            </div>
+
+        </div>
                 <h4 class="fw-bold text-info mb-3"><i class="fas fa-sliders-h me-2"></i> Petunjuk Praktis Rekaman Santai</h4>
                 <div class="row g-3">
                     <div class="col-md-6">
